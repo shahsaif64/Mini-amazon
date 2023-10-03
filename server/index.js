@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import productRouter from './Routes/products.js';
-
+// import defaultData from './defaultdata.js';
+import userRouter from './Routes/users.js';
 
 
 
@@ -17,9 +18,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+
 //ROUTES
 
 app.use('/mini' ,productRouter);
+app.use('/mini' ,userRouter);
 
 
 
@@ -37,3 +40,5 @@ const PORT= process.env.PORT;
 mongoose.connect(DB_URL, {useNewUrlParser: true,useUnifiedTopology: true,})
 .then(()=>{console.log("connected to DB"), app.listen(PORT, ()=>{console.log(`listening on port: ${PORT}`)})})
 .catch((err)=>{console.error(err)});
+
+// defaultData();

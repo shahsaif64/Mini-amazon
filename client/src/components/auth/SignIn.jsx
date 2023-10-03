@@ -1,23 +1,50 @@
 import React, {useState} from 'react'
 import amzBlack from '../../assets/static/blacklogoamazon.png';
 import './sign.css';
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+import AlertBox from '../alert/AlertBox';
+import {useDispatch,useSelector} from 'react-redux'
+import { loginUser,resetUser } from '../../redux/slices/users/userSlice';
 
 const SignIn = () => {
-
+  const dispatch = useDispatch();
+  const navigate= useNavigate();
+  const {token,success, error,loading} = useSelector(state=>state.user);
   const [loginCred, setLoginCred] = useState({email:"", password:""});
 
   function handleChange(e){
     setLoginCred({...loginCred,[e.target.name]:e.target.value});
   }
+
   function handleSubmit(e){
     e.preventDefault();
-    console.log(loginCred);
+    dispatch(loginUser(loginCred));
+    
+   
+    setTimeout(() => {
+      if(localStorage.getItem('Webtoken')){
+        navigate('/');
+      }
+      dispatch(resetUser());
+    }, 2000);
+    
   }
+  if(token){
+    localStorage.setItem('Webtoken',token);
+  }
+  
+  // useEffect(() => {
+  //   if(localStorage.getItem('Webtoken')){
+  //     navigate('/');
+  //   }
+  //   // eslint-disable-next-line
+  // }, [localStorage.getItem('Webtoken')])
+  
 
   return (
     <>
     <section>
+      <AlertBox success={success} error={error} loading={loading}/>
       <div className="sign_container">
         <div className="sign_header">
           <img src={amzBlack} alt="AmazonLogo" />

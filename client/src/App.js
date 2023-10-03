@@ -19,7 +19,7 @@ function App() {
 
    <Routes>
     <Route path='/' element={<Maincomp/>}/>
-    <Route path='/signin' element={<SignIn/>}/>
+    <Route path='/login' element={<SignIn/>}/>
     <Route path='/signup' element={<SignUp/>}/>
     <Route path='/singleproduct/:id' element={<Singleproduct/>}/>
     <Route path='/cart' element={<Cart/>}/>

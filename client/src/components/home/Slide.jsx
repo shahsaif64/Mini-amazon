@@ -2,7 +2,7 @@ import { Divider } from "@mui/material";
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {products} from './productdata';
+// import {products} from './productdata';
 import './slide.css';
 import { Link } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const responsive = {
 };
 
 // const Slide = (props) => {
-const Slide = ({title}) => {
+const Slide = ({title,products}) => {
   return (
     <div className="products_section">
       <div className="products_deal">
@@ -48,10 +48,12 @@ const Slide = ({title}) => {
       >
        {
         products.map((item)=>{
+
+          
             return(
-                <div className="products_items"  key={item.id}>
+                <div className="products_items"  key={item._id}>
                     <div className="product_img">
-                    <Link to={`/singleproduct/${item.id}`}><img src={item.url} alt="productItem" /></Link> 
+                    <Link to={`/singleproduct/${item._id}`}><img src={item.url} alt="productItem"/></Link> 
                     </div>
                     <p className="products_name">{item.title.shortTitle}</p>
                     <p className="products_offer">{item.discount}</p>

@@ -1,6 +1,12 @@
 import React from 'react'
+import {useDispatch} from 'react-redux'
+import { removeItem } from '../../redux/slices/cart/cartSlice';
 
-const Option = () => {
+const Option = ({productId}) => {
+  const dispatch = useDispatch();
+  const removeFromCart=(id)=>{
+    dispatch(removeItem(id));
+  }
   return (
     <div className='add_remove_select'>
         <select name="" id="">
@@ -10,7 +16,7 @@ const Option = () => {
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
-        <p style={{cursor:"pointer"}}>Delete</p> <span>|</span>
+        <p style={{cursor:"pointer"}} onClick={()=>{removeFromCart(productId)}}>Delete</p> <span>|</span>
         <p className='forremovemedia'>Save for Later</p><span>|</span>
         <p className='forremovemedia'>See More Like this</p>
     </div>

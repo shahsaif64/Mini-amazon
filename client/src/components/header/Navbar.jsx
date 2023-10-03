@@ -4,10 +4,13 @@ import amazonLogo from '../../assets/static/amazon_PNG25.png';
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Avatar from '@mui/material/Avatar';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Dropdown from '../dropdown/Dropdown';
+
 
 const Navbar = () => {
+    const productCount= useSelector((state)=>state.cart.length);
     const location= useLocation();
     return (
         <header>
@@ -26,19 +29,21 @@ const Navbar = () => {
 
                 <div className="right">
                     <div className="nav_btn">
-                       {location.pathname==='/signin'?<Link to="/signup">Signup</Link>:<Link to="/signin">Signin</Link>} 
+                       {location.pathname==='/login'?<Link to="/signup">Signup</Link>:!localStorage.getItem('Webtoken') && <Link to="/login">Login</Link>} 
                     </div>
+                    {localStorage.getItem('Webtoken') && <Dropdown />}
 
                     <Link to="/cart">
                     <div className="cart_btn">
-                        <Badge badgeContent={4} color="primary">
+                        <Badge badgeContent={productCount} color="primary">
                         <ShoppingCartIcon id="icon"/>
                         </Badge>
                         <p>Cart</p>
                     </div>
                     </Link>
                     
-                    <Avatar className='avatar' />
+                    
+                    
 
                 </div>
             </nav>

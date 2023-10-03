@@ -155,6 +155,9 @@ header nav .drawer{
     width: 250px;
     background-color: red;
 }
+.dropdown{
+  width: max-content;
+}
 
 
 @media (max-width:800px){
