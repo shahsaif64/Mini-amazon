@@ -2,19 +2,30 @@ import React, { useEffect } from 'react';
 import './singleproduct.css'
 import { Alert, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../../redux/slices/cart/cartSlice';
 import statusCode from '../../utils/statusCode';
 import { useParams } from 'react-router-dom';
 import { getSingle } from '../../redux/slices/products/productSlice';
-
+import { addItem,resetItem,emptyAdd} from '../../redux/slices/cart/cartSlice';
+import AlertBox from '../alert/AlertBox';
+import { useNavigate } from 'react-router-dom';
 
 const Singleproduct = () => {
   const dispatch = useDispatch();
+  const navigate= useNavigate();
   let { id } = useParams()
   const { single, status } = useSelector(state => state.products);
+  const { msg,error } = useSelector(state => state.cart);
   
-  const addToCart=()=>{
-    dispatch(addItem(single));
+  const addToCart=(auth,item)=>{
+    if(!item){
+      dispatch(emptyAdd(auth));
+    }else{
+
+      dispatch(addItem({auth,item}));
+    }
+    setTimeout(() => {
+      dispatch(resetItem());
+    }, 2000);
   }
 
   useEffect(() => {
@@ -48,12 +59,14 @@ const Singleproduct = () => {
     <>
 
       <div className='product_section'>
+      <AlertBox success={msg} error={error} loading={false}/>
         <div className="cart_container">
           <div className="left_cart">
             <img src={single.url} alt="product_image" />
             <div className="cart_btn">
-              <button className='cart_btn1' onClick={addToCart}>Add to cart</button>
-              <button className='cart_btn2'>Buy now</button>
+              <button className='cart_btn1' onClick={()=>{!localStorage.getItem('Webtoken') ? addToCart(single) : addToCart(localStorage.getItem('Webtoken'), single)
+            }}>Add to cart</button>
+              <button className='cart_btn2' onClick={()=>{navigate('/cart')}}>Buy now</button>
             </div>
           </div>
           <div className="right_cart">

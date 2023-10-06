@@ -16,6 +16,12 @@ const AlertBox = ({ success, error, loading }) => {
       {success==="SignUp complete — Login Now!" ? <Alert sx={{ display: "flex", justifyContent: "center" }} variant="filled" severity="success">
       {success}
       </Alert>:<></>}
+      {success==="item added to cart" ? <Alert sx={{ display: "flex", justifyContent: "center" }} variant="filled" severity="success">
+      {success}
+      </Alert>:<></>}
+      {success==="item removed from cart" ? <Alert sx={{ display: "flex", justifyContent: "center" }} variant="filled" severity="error">
+      {success}
+      </Alert>:<></>}
       
 
         

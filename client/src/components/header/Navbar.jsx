@@ -9,9 +9,13 @@ import { useSelector } from 'react-redux';
 import Dropdown from '../dropdown/Dropdown';
 
 
+
+
 const Navbar = () => {
-    const productCount= useSelector((state)=>state.cart.length);
+    const productCount= useSelector((state)=>state.cart.count);
     const location= useLocation();
+  
+    
     return (
         <header>
             <nav>

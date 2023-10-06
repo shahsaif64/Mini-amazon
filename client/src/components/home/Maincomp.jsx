@@ -6,6 +6,7 @@ import { getProducts } from '../../redux/slices/products/productSlice';
 import { useDispatch, useSelector } from 'react-redux'
 import Alert from '@mui/material/Alert';
 import statusCode from '../../utils/statusCode';
+import { getCartItems } from '../../redux/slices/cart/cartSlice';
 
 const Maincomp = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,9 @@ const Maincomp = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    if(localStorage.getItem('Webtoken')){
+      dispatch(getCartItems(localStorage.getItem('Webtoken')))
+    }
     // eslint-disable-next-line
   }, [])
 
